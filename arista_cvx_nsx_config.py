@@ -224,6 +224,11 @@ def main(argv):
 
     for opt, arg in opts:
         if opt == '-a':
+            register_cvx_in_nsx(cvx_thumbprint)
+            create_notification_id()
+            time.sleep(10)
+            cvx_notification_id = get_notification_id_from_nsx()
+            create_deployment_map()
             print ("adding entry")
             print("management api http-commands")
             print("no shutdown")
