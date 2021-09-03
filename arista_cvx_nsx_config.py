@@ -120,9 +120,9 @@ def create_notification_id():
 def get_notification_id_from_nsx():
     print("Extracting notification ID from NSX-T Manager")
     url = "https://"+nsx_ip+"/api/v1/notification-watchers"
+    print(url)
     payload = {}
     headers = {}
-
     try:
         response = requests.request("GET", url, headers=headers, auth = HTTPBasicAuth(nsxt_user, nsxt_password), data=json.dumps(payload), verify=False)
         print(response)
@@ -132,6 +132,9 @@ def get_notification_id_from_nsx():
         return notification_id
     except:
         print("--> Error :(") 
+
+
+
 
 def delete_notification_id_from_nsx():
     print("Delete existing notification ID from NSX-T Manager")
