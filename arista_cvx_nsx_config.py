@@ -97,22 +97,6 @@ def get_notification_id_from_nsx():
     return notification_id
 
 #create deployment map
-
-def delete_deployment_map():
-    url = "https://"+nsx_ip+"/policy/api/v1/infra/domains/default/domain-deployment-maps/cvx-default-dmap"
-
-    payload = json.dumps({
-        "display_name": "cvx-deployment-map",
-        "id": "cvx-default-dmap",
-        "enforcement_point_path": "/infra/sites/default/enforcement-points/cvx-ep"
-    })
-    headers = {
-        'Content-Type': 'application/json'
-    }
-
-    response = requests.request("DELETE", url, headers=headers, auth = HTTPBasicAuth(nsxt_user, nsxt_password), data=json.dumps(payload), verify=False)
-    print(response.text)
-
 def create_deployment_map():
     url = "https://"+nsx_ip+"/policy/api/v1/infra/domains/default/domain-deployment-maps/cvx-default-dmap"
     headers = {
