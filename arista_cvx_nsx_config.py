@@ -134,12 +134,10 @@ def get_notification_id_from_nsx():
         print("--> Error :(") 
 
 
-
-
 def delete_notification_id_from_nsx():
     print("Delete existing notification ID from NSX-T Manager")
     id = get_notification_id_from_nsx()
-    url = "https://"+nsx_ip+"/api/v1/notification-watchers"+id
+    url = "https://"+nsx_ip+"/api/v1/notification-watchers"+str(id)
 
     payload = {}
     headers = {}    
