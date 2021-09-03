@@ -115,7 +115,9 @@ def get_notification_id_from_nsx():
         "password": cvx_password
         }
     }
-    headers = {}
+    headers = {
+        'Content-Type': 'application/json'
+    }
     response = requests.request("GET", url, headers=headers, auth = HTTPBasicAuth(nsxt_user, nsxt_password), data=json.dumps(payload), verify=False)
     print (response)
     json_object = json.loads(response.text)
