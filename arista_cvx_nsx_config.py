@@ -253,6 +253,9 @@ def main(argv):
             sys.exit()
         elif opt == '-d':
             print ("deleting entry")
+            nsx_ip = input("IP Address of NSX-T: ") 
+            nsxt_user = input("NSX-T Admin Username: ")
+            nsxt_password = getpass.getpass("Enter NSX-T Admin Password: ")
             delete_notification_id_from_nsx()
             delete_deployment_map()
             delete_cvx_in_nxs()
