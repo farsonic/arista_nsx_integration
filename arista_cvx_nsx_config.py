@@ -64,6 +64,7 @@ def register_cvx_in_nsx(cvx_thumbprint):
             'Content-Type': 'application/json'
     }
     response = requests.request("PATCH", url, headers=headers, auth = HTTPBasicAuth(nsxt_user, nsxt_password), data=json.dumps(payload), verify=False)
+    print (response)
 
 #Read CVX Enforcement point setting from NSX 
 def get_cvx_from_nsx():
@@ -90,6 +91,7 @@ def get_notification_id_from_nsx():
     }
     headers = {}
     response = requests.request("GET", url, headers=headers, auth = HTTPBasicAuth(nsxt_user, nsxt_password), data=json.dumps(payload), verify=False)
+    print (response)
     json_object = json.loads(response.text)
     notification_id = (json_object['results'][0]['id'])
     return notification_id
