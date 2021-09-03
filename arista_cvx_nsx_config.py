@@ -141,7 +141,7 @@ def get_notification_id_from_nsx():
 
 def delete_notification_id_from_nsx():
     print("Delete existing notification ID from NSX-T Manager")
-    id = get_notification_id_from_nsx(cvx_ip)
+    id = get_notification_id_from_nsx()
     url = "https://192.168.0.26/api/v1/notification-watchers"
 
     payload = json.dumps({
@@ -204,16 +204,23 @@ nsxt_user = input("NSX-T Admin Username: ")
 nsxt_password = getpass.getpass("Enter NSX-T Admin Password: ")
 cvx_user = input("CVX Admin Username: ")
 cvx_password = getpass.getpass("Enter CVX Password: ")
+
 delete_notification_id_from_nsx()
 delete_deployment_map()
 delete_cvx_in_nxs()
+
 cvx_thumbprint = get_cvx_thumbprint(cvx_ip)
 nsx_thumbprint = get_nsx_thumbprint(nsx_ip)
+
+
 register_cvx_in_nsx(cvx_thumbprint)
 create_notification_id()
 time.sleep(10)
 cvx_notification_id = get_notification_id_from_nsx()
 create_deployment_map()
+
+
+
 
 print("management api http-commands")
 print("no shutdown")
