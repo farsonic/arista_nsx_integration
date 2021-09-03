@@ -214,7 +214,6 @@ def create_deployment_map():
 
 
 
-import sys, getopt
 
 def main(argv):
     try:
@@ -226,14 +225,6 @@ def main(argv):
     for opt, arg in opts:
         if opt == '-a':
             print ("adding entry")
-            cvx_ip = input("IP Address of CVX: ")  
-            nsx_ip = input("IP Address of NSX-T: ") 
-            nsxt_user = input("NSX-T Admin Username: ")
-            nsxt_password = getpass.getpass("Enter NSX-T Admin Password: ")
-            cvx_user = input("CVX Admin Username: ")
-            cvx_password = getpass.getpass("Enter CVX Password: ")
-            cvx_thumbprint = get_cvx_thumbprint(cvx_ip)
-            nsx_thumbprint = get_nsx_thumbprint(nsx_ip)
             print("management api http-commands")
             print("no shutdown")
             print("exit")
@@ -253,16 +244,22 @@ def main(argv):
             sys.exit()
         elif opt == '-d':
             print ("deleting entry")
-            nsx_ip = input("IP Address of NSX-T: ") 
-            nsxt_user = input("NSX-T Admin Username: ")
-            nsxt_password = getpass.getpass("Enter NSX-T Admin Password: ")
             delete_notification_id_from_nsx()
             delete_deployment_map()
             delete_cvx_in_nxs()
 
 
 if __name__ == "__main__":
-   main(sys.argv[1:])
+    cvx_ip = input("IP Address of CVX: ")  
+    nsx_ip = input("IP Address of NSX-T: ") 
+    nsxt_user = input("NSX-T Admin Username: ")
+    nsxt_password = getpass.getpass("Enter NSX-T Admin Password: ")
+    cvx_user = input("CVX Admin Username: ")
+    cvx_password = getpass.getpass("Enter CVX Password: ")
+    cvx_thumbprint = get_cvx_thumbprint(cvx_ip)
+    nsx_thumbprint = get_nsx_thumbprint(nsx_ip)
+    main(sys.argv[1:])
+
 
 
 
