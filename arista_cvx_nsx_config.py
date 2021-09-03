@@ -120,27 +120,18 @@ def create_notification_id():
 def get_notification_id_from_nsx():
     print("Extracting notification ID from NSX-T Manager")
     url = "https://"+nsx_ip+"/api/v1/notification-watchers"
-    payload = {
-        "display_name": "cvx-deployment-map",
-        "id": "cvx-default-dmap",
-        "enforcement_point_path": "/infra/sites/default/enforcement-points/cvx-ep"
-        }
-    headers = {
-        'Content-Type': 'application/json'
-    }
+    payload = {}
+    headers = {}
 
     try:
         response = requests.request("GET", url, headers=headers, auth = HTTPBasicAuth(nsxt_user, nsxt_password), data=json.dumps(payload), verify=False)
         print(response)
         json_object = json.loads(response.text)
         notification_id = (json_object['results'][0]['id'])
-        return notification_id
-        print ('--> Read successfully ')
         print (notification_id)
+        return notification_id
     except:
-        print("--> Error :(")
-    
-    
+        print("--> Error :(") 
 
 def delete_notification_id_from_nsx():
     print("Delete existing notification ID from NSX-T Manager")
