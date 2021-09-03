@@ -10,6 +10,7 @@ from requests.auth import HTTPBasicAuth
 import json
 import os
 import urllib3
+import time
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 #retrive SSL Thumbprint from Arista CVX 
@@ -80,7 +81,7 @@ def get_cvx_from_nsx():
 
 #Create notification ID 
 def create_notification_id():
-    print("Extracting notification ID from NSX-T Manager")
+    print("Creating notification ID from NSX-T Manager")
     url = "https://"+nsx_ip+"/api/v1/notification-watchers"
     payload = {
         "server": cvx_ip,
@@ -163,6 +164,7 @@ cvx_thumbprint = get_cvx_thumbprint(cvx_ip)
 nsx_thumbprint = get_nsx_thumbprint(nsx_ip)
 register_cvx_in_nsx(cvx_thumbprint)
 create_notification_id()
+time.sleep(10)
 cvx_notification_id = get_notification_id_from_nsx()
 create_deployment_map()
 
