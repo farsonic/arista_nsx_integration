@@ -49,6 +49,7 @@ def delete_cvx_in_nxs():
 def register_cvx_in_nsx(cvx_thumbprint):
     #delete_deployment_map()
     #delete_cvx_in_nxs()
+    print("Creating CVX Entry as enforcement point in NSX-T manager")
     url = "https://"+nsx_ip+"/policy/api/v1/infra/sites/default/enforcement-points/cvx-ep"
     payload = {
             "auto_enforce": "false",
