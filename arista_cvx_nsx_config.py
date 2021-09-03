@@ -68,7 +68,11 @@ def register_cvx_in_nsx(cvx_thumbprint):
             'Content-Type': 'application/json'
     }
     response = requests.request("PATCH", url, headers=headers, auth = HTTPBasicAuth(nsxt_user, nsxt_password), data=json.dumps(payload), verify=False)
-    print (response)
+    #print (response)
+    if resp.status_code == 200:
+        print ('Change made successfully')
+    else:
+        print ('Failed')
 
 #Read CVX Enforcement point setting from NSX 
 def get_cvx_from_nsx():
@@ -98,7 +102,11 @@ def create_notification_id():
         'Content-Type': 'application/json'
     }
     response = requests.request("POST", url, headers=headers, auth = HTTPBasicAuth(nsxt_user, nsxt_password), data=json.dumps(payload), verify=False)
-    print (response)
+    if resp.status_code == 200:
+        print ('Change made successfully')
+    else:
+        print ('Failed')
+    #print (response)
 
 
 def get_notification_id_from_nsx():
@@ -141,7 +149,11 @@ def delete_deployment_map():
     }
 
     response = requests.request("DELETE", url, headers=headers, auth = HTTPBasicAuth(nsxt_user, nsxt_password), data=json.dumps(payload), verify=False)
-    print(response.text)
+    #print(response.text)
+    if resp.status_code == 200:
+        print ('Change made successfully')
+    else:
+        print ('Failed')
 
 def create_deployment_map():
     url = "https://"+nsx_ip+"/policy/api/v1/infra/domains/default/domain-deployment-maps/cvx-default-dmap"
