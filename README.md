@@ -11,3 +11,5 @@ High level steps
 5) Create Deployment Map in NSX, mapping security policy to CVX
 6) Create Arista EOS configuration 
 
+## Lab topology
+![Screenshot](diagrams/AristaNSXIntegrationFlow.png)
