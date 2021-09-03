@@ -51,8 +51,8 @@ def delete_cvx_in_nxs():
     response = requests.request("DELETE", url, headers=headers, auth = HTTPBasicAuth(nsxt_user, nsxt_password), data=json.dumps(payload), verify=False)
 
 def register_cvx_in_nsx(cvx_thumbprint):
-    #delete_deployment_map()
-    #delete_cvx_in_nxs()
+    delete_deployment_map()
+    delete_cvx_in_nxs()
     print("Creating CVX Entry as enforcement point in NSX-T manager")
     url = "https://"+nsx_ip+"/policy/api/v1/infra/sites/default/enforcement-points/cvx-ep"
     payload = {
