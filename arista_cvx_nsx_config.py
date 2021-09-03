@@ -121,16 +121,9 @@ def get_notification_id_from_nsx():
     print("Extracting notification ID from NSX-T Manager")
     url = "https://"+nsx_ip+"/api/v1/notification-watchers"
     payload = {
-        "server": cvx_ip,
-        "method": "POST",
-        "uri": "/pcs/v1/nsgroup/notification",
-        "use_https": True,
-        "certificate_sha256_thumbprint": cvx_thumbprint,
-        "authentication_scheme": {
-        "scheme_name": "BASIC_AUTH",
-        "username": cvx_user,
-        "password": cvx_password
-        }
+        "display_name": "cvx-deployment-map",
+        "id": "cvx-default-dmap",
+        "enforcement_point_path": "/infra/sites/default/enforcement-points/cvx-ep"
     }
     headers = {
         'Content-Type': 'application/json'
@@ -230,7 +223,6 @@ def main(argv):
             time.sleep(10)
             cvx_notification_id = get_notification_id_from_nsx()
             create_deployment_map()
-            print ("adding entry")
             print("management api http-commands")
             print("no shutdown")
             print("exit")
@@ -249,7 +241,6 @@ def main(argv):
             print("write mem")      
             sys.exit()
         elif opt == '-d':
-            print ("deleting entry")
             delete_notification_id_from_nsx()
             delete_deployment_map()
             delete_cvx_in_nxs()
