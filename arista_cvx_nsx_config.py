@@ -95,7 +95,9 @@ def create_notification_id():
         "password": cvx_password
         }
     }
-    headers = {}
+    headers = {
+        'Content-Type': 'application/json'
+    }
     response = requests.request("POST", url, headers=headers, auth = HTTPBasicAuth(nsxt_user, nsxt_password), data=json.dumps(payload), verify=False)
     print (response)
 
