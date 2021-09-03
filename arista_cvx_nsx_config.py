@@ -137,11 +137,10 @@ def get_notification_id_from_nsx():
 def delete_notification_id_from_nsx():
     print("Delete existing notification ID from NSX-T Manager")
     id = get_notification_id_from_nsx()
-    url = "https://"+nsx_ip+"/api/v1/notification-watchers"+str(id)
-
+    url = "https://"+nsx_ip+"/api/v1/notification-watchers/"+str(id)
+    print(url)
     payload = {}
     headers = {}    
-
     response = requests.request("DELETE", url, headers=headers, auth = HTTPBasicAuth(nsxt_user, nsxt_password), data=payload, verify=False)
     print (response)
     if response.status_code == 200:
