@@ -9,6 +9,8 @@ import requests
 from requests.auth import HTTPBasicAuth
 import json
 import os
+import urllib3
+urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 #retrive SSL Thumbprint from Arista CVX 
 def get_cvx_thumbprint(addr):
