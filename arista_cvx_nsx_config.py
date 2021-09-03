@@ -218,7 +218,7 @@ import sys, getopt
 
 def main(argv):
     try:
-        opts, args = getopt.getopt(argv,"a:d:")
+        opts, args = getopt.getopt(argv,"ha:d:")
     except getopt.GetoptError:
         print ('arista_cvx_nsx_config.py -a (add) -d (del)')
         sys.exit(2)
