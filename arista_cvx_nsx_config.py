@@ -73,7 +73,6 @@ def register_cvx_in_nsx(cvx_thumbprint):
             'Content-Type': 'application/json'
     }
     response = requests.request("PATCH", url, headers=headers, auth = HTTPBasicAuth(nsxt_user, nsxt_password), data=json.dumps(payload), verify=False)
-    #print (response)
     if response.status_code == 200:
         print ('Change made successfully')
     else:
@@ -111,11 +110,9 @@ def create_notification_id():
         print ('Change made successfully')
     else:
         print ('Failed')
-    #print (response)
 
 
 def get_notification_id_from_nsx():
-    print("Getting notification ID from NSX Manager")
     print("Extracting notification ID from NSX-T Manager")
     url = "https://"+nsx_ip+"/api/v1/notification-watchers"
     payload = {
@@ -134,7 +131,6 @@ def get_notification_id_from_nsx():
         'Content-Type': 'application/json'
     }
     response = requests.request("GET", url, headers=headers, auth = HTTPBasicAuth(nsxt_user, nsxt_password), data=json.dumps(payload), verify=False)
-    print (response)
     if response.status_code == 200:
         print ('Read successfully')
     else:
@@ -143,9 +139,25 @@ def get_notification_id_from_nsx():
     notification_id = (json_object['results'][0]['id'])
     return notification_id
 
+def delete_notification_id_from_nsx():
+    print("Delete existing notification ID from NSX-T Manager")
+    id = get_notification_id_from_nsx()
+    url = "https://192.168.0.26/api/v1/notification-watchers"
+
+    payload = json.dumps({
+        "display_name": "cvx-deployment-map",
+        "id": id,
+        "enforcement_point_path": "/infra/sites/default/enforcement-points/cvx-ep"
+    })
+    headers = {
+        'Content-Type': 'application/json'
+    }
+
+    response = requests.request("DELETE", url, headers=headers, auth = HTTPBasicAuth(nsxt_user, nsxt_password), data=json.dumps(payload), verify=False)
+
+
 
 #create deployment map
-
 def delete_deployment_map():
     print("Deleting existing deployment map for cvx-default-dmap")
     url = "https://"+nsx_ip+"/policy/api/v1/infra/domains/default/domain-deployment-maps/cvx-default-dmap"
@@ -160,7 +172,6 @@ def delete_deployment_map():
     }
 
     response = requests.request("DELETE", url, headers=headers, auth = HTTPBasicAuth(nsxt_user, nsxt_password), data=json.dumps(payload), verify=False)
-    #print(response.text)
     if response.status_code == 200:
         print ('Change made successfully')
     else:
@@ -190,6 +201,7 @@ nsxt_user = input("NSX-T Admin Username: ")
 nsxt_password = getpass.getpass("Enter NSX-T Admin Password: ")
 cvx_user = input("CVX Admin Username: ")
 cvx_password = getpass.getpass("Enter CVX Password: ")
+delete_notification_id_from_nsx()
 delete_deployment_map()
 delete_cvx_in_nxs()
 cvx_thumbprint = get_cvx_thumbprint(cvx_ip)
