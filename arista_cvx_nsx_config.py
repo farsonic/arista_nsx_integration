@@ -40,7 +40,7 @@ def get_nsx_thumbprint(addr):
 def delete_cvx_in_nxs():
     print("Deleting existing CVX as enforcement point...will fail if not present")
     url = "https://"+nsx_ip+"/policy/api/v1/infra/sites/default/enforcement-points/cvx-ep"
-
+    print(url)
     payload = {
         "display_name": "cvx-deployment-map",
         "id": "cvx-default-dmap",
@@ -60,6 +60,7 @@ def register_cvx_in_nsx(cvx_thumbprint):
     time.sleep(10)
     print("Creating CVX Entry as enforcement point in NSX-T manager")
     url = "https://"+nsx_ip+"/policy/api/v1/infra/sites/default/enforcement-points/cvx-ep"
+    print(url)
     payload = {
             "auto_enforce": "false",
             "connection_info": {
@@ -95,6 +96,7 @@ def get_cvx_from_nsx():
 def create_notification_id():
     print("Creating notification ID from NSX-T Manager")
     url = "https://"+nsx_ip+"/api/v1/notification-watchers"
+    print(url)
     payload = {
         "server": cvx_ip,
         "method": "POST",
@@ -155,12 +157,12 @@ def delete_notification_id_from_nsx():
 def delete_deployment_map():
     print("Deleting existing deployment map for cvx-default-dmap")
     url = "https://"+nsx_ip+"/policy/api/v1/infra/domains/default/domain-deployment-maps/cvx-default-dmap"
-
-    payload = json.dumps({
+    print(url)
+    payload = {
         "display_name": "cvx-deployment-map",
         "id": "cvx-default-dmap",
         "enforcement_point_path": "/infra/sites/default/enforcement-points/cvx-ep"
-    })
+    }
     headers = {
         'Content-Type': 'application/json'
     }
@@ -174,6 +176,7 @@ def delete_deployment_map():
 def create_deployment_map():
     print("Creating deployment map for cvx-default-dmap")
     url = "https://"+nsx_ip+"/policy/api/v1/infra/domains/default/domain-deployment-maps/cvx-default-dmap"
+    print(url)
     headers = {
             'Content-Type': 'application/json'
     }
