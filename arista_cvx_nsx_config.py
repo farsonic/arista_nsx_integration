@@ -111,6 +111,7 @@ def create_notification_id():
         'Content-Type': 'application/json'
     }
     response = requests.request("POST", url, headers=headers, auth = HTTPBasicAuth(nsxt_user, nsxt_password), data=json.dumps(payload), verify=False)
+    print(response)
     if response.status_code == 200:
         print ('--> Change made successfully')
     else:
@@ -132,6 +133,7 @@ def get_notification_id_from_nsx():
         return notification_id
     except:
         print("--> Error :(") 
+
 
 
 def delete_notification_id_from_nsx():
