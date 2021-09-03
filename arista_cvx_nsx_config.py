@@ -204,13 +204,14 @@ nsxt_user = input("NSX-T Admin Username: ")
 nsxt_password = getpass.getpass("Enter NSX-T Admin Password: ")
 cvx_user = input("CVX Admin Username: ")
 cvx_password = getpass.getpass("Enter CVX Password: ")
+cvx_thumbprint = get_cvx_thumbprint(cvx_ip)
+nsx_thumbprint = get_nsx_thumbprint(nsx_ip)
 
 delete_notification_id_from_nsx()
 delete_deployment_map()
 delete_cvx_in_nxs()
 
-cvx_thumbprint = get_cvx_thumbprint(cvx_ip)
-nsx_thumbprint = get_nsx_thumbprint(nsx_ip)
+
 
 
 register_cvx_in_nsx(cvx_thumbprint)
