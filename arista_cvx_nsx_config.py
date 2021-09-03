@@ -121,14 +121,9 @@ def get_notification_id_from_nsx():
     print("Extracting notification ID from NSX-T Manager")
     url = "https://"+nsx_ip+"/api/v1/notification-watchers"
     payload = {
-        "method": "GET",
-        "uri": "/pcs/v1/nsgroup/notification",
-        "use_https": True,
-        "certificate_sha256_thumbprint": cvx_thumbprint,
-        "authentication_scheme": {
-        "scheme_name": "BASIC_AUTH",
-        "username": cvx_user,
-        "password": cvx_password
+        "display_name": "cvx-deployment-map",
+        "id": "cvx-default-dmap",
+        "enforcement_point_path": "/infra/sites/default/enforcement-points/cvx-ep"
         }
     }
     headers = {
