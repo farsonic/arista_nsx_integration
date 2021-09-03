@@ -12,6 +12,7 @@ import os
 
 #retrive SSL Thumbprint from Arista CVX 
 def get_cvx_thumbprint(addr):
+    print("Read SSL Thumbprint from CVX server at IP Address -> "+cvx_ip)
     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     sock.settimeout(1)
     wrappedSocket = ssl.wrap_socket(sock)
@@ -77,6 +78,7 @@ def get_cvx_from_nsx():
 
 #Create notification ID 
 def get_notification_id_from_nsx():
+    print("Extracting notification ID from NSX-T Manager")
     url = "https://"+nsx_ip+"/api/v1/notification-watchers"
     payload = {
         "server": cvx_ip,
