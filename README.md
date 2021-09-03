@@ -1,4 +1,4 @@
-### arista_nsx_integration
+### Arista integration with NSX-T 
 
 Quick and dirty script to configure Arista CVX to communicate with VMware NSX-T Server. This has to be configured through the API on NSX and suitable authentication configured on both ends to allow communiction to occur. 
 
