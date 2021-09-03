@@ -141,7 +141,7 @@ def get_notification_id_from_nsx():
 
 def delete_notification_id_from_nsx():
     print("Delete existing notification ID from NSX-T Manager")
-    id = get_notification_id_from_nsx()
+    id = get_notification_id_from_nsx(cvx_ip)
     url = "https://192.168.0.26/api/v1/notification-watchers"
 
     payload = json.dumps({
@@ -154,7 +154,10 @@ def delete_notification_id_from_nsx():
     }
 
     response = requests.request("DELETE", url, headers=headers, auth = HTTPBasicAuth(nsxt_user, nsxt_password), data=json.dumps(payload), verify=False)
-
+    if response.status_code == 200:
+        print ('Deleted successfully')
+    else:
+        print ('Failed')
 
 
 #create deployment map
