@@ -79,6 +79,26 @@ def get_cvx_from_nsx():
 
 
 #Create notification ID 
+def create_notification_id():
+    print("Extracting notification ID from NSX-T Manager")
+    url = "https://"+nsx_ip+"/api/v1/notification-watchers"
+    payload = {
+        "server": cvx_ip,
+        "method": "POST",
+        "uri": "/pcs/v1/nsgroup/notification",
+        "use_https": True,
+        "certificate_sha256_thumbprint": cvx_thumbprint,
+        "authentication_scheme": {
+        "scheme_name": "BASIC_AUTH",
+        "username": cvx_user,
+        "password": cvx_password
+        }
+    }
+    headers = {}
+    response = requests.request("POST", url, headers=headers, auth = HTTPBasicAuth(nsxt_user, nsxt_password), data=json.dumps(payload), verify=False)
+    print (response)
+
+
 def get_notification_id_from_nsx():
     print("Extracting notification ID from NSX-T Manager")
     url = "https://"+nsx_ip+"/api/v1/notification-watchers"
@@ -100,6 +120,7 @@ def get_notification_id_from_nsx():
     json_object = json.loads(response.text)
     notification_id = (json_object['results'][0]['id'])
     return notification_id
+
 
 #create deployment map
 
@@ -141,6 +162,7 @@ cvx_password = getpass.getpass("Enter CVX Password: ")
 cvx_thumbprint = get_cvx_thumbprint(cvx_ip)
 nsx_thumbprint = get_nsx_thumbprint(nsx_ip)
 register_cvx_in_nsx(cvx_thumbprint)
+create_notification_id()
 cvx_notification_id = get_notification_id_from_nsx()
 create_deployment_map()
 
