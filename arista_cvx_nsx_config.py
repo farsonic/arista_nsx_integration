@@ -37,6 +37,7 @@ def get_nsx_thumbprint(addr):
 
 #Configure NSX to have CVX as an enforcement point. Only one enformcent point allowed per site 
 def delete_cvx_in_nxs():
+    print("Deleting existing CVX as enforcement point...will fail if not present")
     url = "https://"+nsx_ip+"/policy/api/v1/infra/sites/default/enforcement-points/cvx-ep"
 
     payload = {
@@ -49,6 +50,10 @@ def delete_cvx_in_nxs():
     }
 
     response = requests.request("DELETE", url, headers=headers, auth = HTTPBasicAuth(nsxt_user, nsxt_password), data=json.dumps(payload), verify=False)
+    if response.status_code == 200:
+        print ('Deleted successfully')
+    else:
+        print ('Failed')
 
 def register_cvx_in_nsx(cvx_thumbprint):
     time.sleep(10)
@@ -110,6 +115,7 @@ def create_notification_id():
 
 
 def get_notification_id_from_nsx():
+    print("Getting notification ID from NSX Manager")
     print("Extracting notification ID from NSX-T Manager")
     url = "https://"+nsx_ip+"/api/v1/notification-watchers"
     payload = {
@@ -129,6 +135,10 @@ def get_notification_id_from_nsx():
     }
     response = requests.request("GET", url, headers=headers, auth = HTTPBasicAuth(nsxt_user, nsxt_password), data=json.dumps(payload), verify=False)
     print (response)
+    if response.status_code == 200:
+        print ('Read successfully')
+    else:
+        print ('Failed')
     json_object = json.loads(response.text)
     notification_id = (json_object['results'][0]['id'])
     return notification_id
@@ -137,6 +147,7 @@ def get_notification_id_from_nsx():
 #create deployment map
 
 def delete_deployment_map():
+    print("Deleting existing deployment map for cvx-default-dmap")
     url = "https://"+nsx_ip+"/policy/api/v1/infra/domains/default/domain-deployment-maps/cvx-default-dmap"
 
     payload = json.dumps({
@@ -156,6 +167,7 @@ def delete_deployment_map():
         print ('Failed')
 
 def create_deployment_map():
+    print("Creating deployment map for cvx-default-dmap")
     url = "https://"+nsx_ip+"/policy/api/v1/infra/domains/default/domain-deployment-maps/cvx-default-dmap"
     headers = {
             'Content-Type': 'application/json'
@@ -167,7 +179,10 @@ def create_deployment_map():
     }
 
     response = requests.request("PATCH", url, headers=headers, auth = HTTPBasicAuth(nsxt_user, nsxt_password), data=json.dumps(payload), verify=False)
-
+    if response.status_code == 200:
+        print ('Change made successfully')
+    else:
+        print ('Failed')
 
 cvx_ip = input("IP Address of CVX: ")  
 nsx_ip = input("IP Address of NSX-T: ") 
