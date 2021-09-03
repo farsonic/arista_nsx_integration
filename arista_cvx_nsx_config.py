@@ -51,9 +51,9 @@ def delete_cvx_in_nxs():
 
     response = requests.request("DELETE", url, headers=headers, auth = HTTPBasicAuth(nsxt_user, nsxt_password), data=json.dumps(payload), verify=False)
     if response.status_code == 200:
-        print ('Deleted successfully')
+        print ('--> Deleted successfully')
     else:
-        print ('Failed')
+        print ('--> Failed')
 
 def register_cvx_in_nsx(cvx_thumbprint):
     time.sleep(10)
@@ -74,17 +74,21 @@ def register_cvx_in_nsx(cvx_thumbprint):
     }
     response = requests.request("PATCH", url, headers=headers, auth = HTTPBasicAuth(nsxt_user, nsxt_password), data=json.dumps(payload), verify=False)
     if response.status_code == 200:
-        print ('Change made successfully')
+        print ('--> Change made successfully')
     else:
-        print ('Failed')
+        print ('--> Failed')
 
 #Read CVX Enforcement point setting from NSX 
 def get_cvx_from_nsx():
+    print("Read enforement point from NSX")
     url = "https://"+nsx_ip+"/policy/api/v1/infra/sites/default/enforcement-points/cvx-ep"
     payload = ""
     headers = { }
     response = requests.request("GET", url, headers=headers, auth = HTTPBasicAuth(nsxt_user, nsxt_password), data=payload, verify=False)
-
+    if response.status_code == 200:
+        print ('--> Read successful')
+    else:
+        print ('--> Failed')
 
 #Create notification ID 
 def create_notification_id():
@@ -107,9 +111,9 @@ def create_notification_id():
     }
     response = requests.request("POST", url, headers=headers, auth = HTTPBasicAuth(nsxt_user, nsxt_password), data=json.dumps(payload), verify=False)
     if response.status_code == 200:
-        print ('Change made successfully')
+        print ('--> Change made successfully')
     else:
-        print ('Failed')
+        print ('--> Failed')
 
 
 def get_notification_id_from_nsx():
@@ -132,9 +136,9 @@ def get_notification_id_from_nsx():
     }
     response = requests.request("GET", url, headers=headers, auth = HTTPBasicAuth(nsxt_user, nsxt_password), data=json.dumps(payload), verify=False)
     if response.status_code == 200:
-        print ('Read successfully')
+        print ('--> Read successfully')
     else:
-        print ('Failed')
+        print ('--> Failed')
     json_object = json.loads(response.text)
     notification_id = (json_object['results'][0]['id'])
     return notification_id
@@ -154,10 +158,11 @@ def delete_notification_id_from_nsx():
     }
 
     response = requests.request("DELETE", url, headers=headers, auth = HTTPBasicAuth(nsxt_user, nsxt_password), data=json.dumps(payload), verify=False)
+    print (response)
     if response.status_code == 200:
-        print ('Deleted successfully')
+        print ('--> Deleted successfully')
     else:
-        print ('Failed')
+        print ('--> Failed')
 
 
 #create deployment map
@@ -176,9 +181,9 @@ def delete_deployment_map():
 
     response = requests.request("DELETE", url, headers=headers, auth = HTTPBasicAuth(nsxt_user, nsxt_password), data=json.dumps(payload), verify=False)
     if response.status_code == 200:
-        print ('Change made successfully')
+        print ('--> Change made successfully')
     else:
-        print ('Failed')
+        print ('--> Failed')
 
 def create_deployment_map():
     print("Creating deployment map for cvx-default-dmap")
@@ -194,9 +199,9 @@ def create_deployment_map():
 
     response = requests.request("PATCH", url, headers=headers, auth = HTTPBasicAuth(nsxt_user, nsxt_password), data=json.dumps(payload), verify=False)
     if response.status_code == 200:
-        print ('Change made successfully')
+        print ('--> Change made successfully')
     else:
-        print ('Failed')
+        print ('--> Failed')
 
 cvx_ip = input("IP Address of CVX: ")  
 nsx_ip = input("IP Address of NSX-T: ") 
