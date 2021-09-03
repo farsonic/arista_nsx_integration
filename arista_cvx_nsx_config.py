@@ -217,12 +217,18 @@ def create_deployment_map():
 import sys, getopt
 
 def main(argv):
-   for opt, arg in opts:
-      if opt == '-a':
-         print ("adding entry")
-         sys.exit()
-      elif opt == '-d':
-        print ("deleting entry")
+    try:
+        opts, args = getopt.getopt(argv,"a:d:")
+    except getopt.GetoptError:
+        print 'arista_cvx_nsx_config.py -a (add) -d (del)'
+        sys.exit(2)
+
+    for opt, arg in opts:
+        if opt == '-a':
+            print ("adding entry")
+            sys.exit()
+        elif opt == '-d':
+            print ("deleting entry")
 
 
 if __name__ == "__main__":
