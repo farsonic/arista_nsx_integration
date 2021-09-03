@@ -141,11 +141,13 @@ def get_notification_id_from_nsx():
             json_object = json.loads(response.text)
             notification_id = (json_object['results'][0]['id'])
             return notification_id
-            print ('--> Read successfully')
+            print ('--> Read successfully '+ notification_id)
+        if response.status_code == 405:
+            print("Record not found")
         else:
             print ('--> Failed')
     except:
-        print("--> No Record found, moving on")
+        print("--> Error :(")
     
     
 
