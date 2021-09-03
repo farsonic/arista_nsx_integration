@@ -125,7 +125,6 @@ def get_notification_id_from_nsx():
         "id": "cvx-default-dmap",
         "enforcement_point_path": "/infra/sites/default/enforcement-points/cvx-ep"
         }
-    }
     headers = {
         'Content-Type': 'application/json'
     }
