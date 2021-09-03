@@ -69,7 +69,7 @@ def register_cvx_in_nsx(cvx_thumbprint):
     }
     response = requests.request("PATCH", url, headers=headers, auth = HTTPBasicAuth(nsxt_user, nsxt_password), data=json.dumps(payload), verify=False)
     #print (response)
-    if resp.status_code == 200:
+    if response.status_code == 200:
         print ('Change made successfully')
     else:
         print ('Failed')
@@ -102,7 +102,7 @@ def create_notification_id():
         'Content-Type': 'application/json'
     }
     response = requests.request("POST", url, headers=headers, auth = HTTPBasicAuth(nsxt_user, nsxt_password), data=json.dumps(payload), verify=False)
-    if resp.status_code == 200:
+    if response.status_code == 200:
         print ('Change made successfully')
     else:
         print ('Failed')
@@ -150,7 +150,7 @@ def delete_deployment_map():
 
     response = requests.request("DELETE", url, headers=headers, auth = HTTPBasicAuth(nsxt_user, nsxt_password), data=json.dumps(payload), verify=False)
     #print(response.text)
-    if resp.status_code == 200:
+    if response.status_code == 200:
         print ('Change made successfully')
     else:
         print ('Failed')
