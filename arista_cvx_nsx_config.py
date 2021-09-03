@@ -134,11 +134,16 @@ def get_notification_id_from_nsx():
     headers = {
         'Content-Type': 'application/json'
     }
-    response = requests.request("GET", url, headers=headers, auth = HTTPBasicAuth(nsxt_user, nsxt_password), data=json.dumps(payload), verify=False)
-    if response.status_code == 200:
-        print ('--> Read successfully')
-    else:
-        print ('--> Failed')
+
+    try:
+        response = requests.request("GET", url, headers=headers, auth = HTTPBasicAuth(nsxt_user, nsxt_password), data=json.dumps(payload), verify=False)
+        if response.status_code == 200:
+            print ('--> Read successfully')
+        else:
+            print ('--> Failed')
+    except:
+        print("--> No Record found, moving on")
+    
     json_object = json.loads(response.text)
     notification_id = (json_object['results'][0]['id'])
     return notification_id
