@@ -11,6 +11,7 @@ import json
 import os
 import urllib3
 import time
+import sys, getopt
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 #retrive SSL Thumbprint from Arista CVX 
