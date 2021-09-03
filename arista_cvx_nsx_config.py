@@ -177,6 +177,11 @@ def create_deployment_map():
     print("Creating deployment map for cvx-default-dmap")
     url = "https://"+nsx_ip+"/policy/api/v1/infra/domains/default/domain-deployment-maps/cvx-default-dmap"
     print(url)
+    payload = {
+        "display_name": "cvx-deployment-map",
+        "id": "cvx-default-dmap",
+        "enforcement_point_path": "/infra/sites/default/enforcement-points/cvx-ep"
+        }
     headers = {
             'Content-Type': 'application/json'
     }
