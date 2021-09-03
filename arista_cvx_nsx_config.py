@@ -222,7 +222,6 @@ def main(argv):
          sys.exit()
       elif opt == '-d':
         print ("deleting entry")
-         outputfile = arg
 
 
 if __name__ == "__main__":
