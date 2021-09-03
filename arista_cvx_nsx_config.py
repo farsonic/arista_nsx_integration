@@ -211,47 +211,28 @@ def create_deployment_map():
     else:
         print ('--> Failed')
 
-cvx_ip = input("IP Address of CVX: ")  
-nsx_ip = input("IP Address of NSX-T: ") 
-nsxt_user = input("NSX-T Admin Username: ")
-nsxt_password = getpass.getpass("Enter NSX-T Admin Password: ")
-cvx_user = input("CVX Admin Username: ")
-cvx_password = getpass.getpass("Enter CVX Password: ")
-cvx_thumbprint = get_cvx_thumbprint(cvx_ip)
-nsx_thumbprint = get_nsx_thumbprint(nsx_ip)
-
-delete_notification_id_from_nsx()
-delete_deployment_map()
-delete_cvx_in_nxs()
 
 
+import sys, getopt
+
+def main(argv):
+   for opt, arg in opts:
+      if opt == '-a':
+         print ("adding entry")
+         sys.exit()
+      elif opt == '-d':
+        print ("deleting entry")
+         outputfile = arg
 
 
-register_cvx_in_nsx(cvx_thumbprint)
-create_notification_id()
-time.sleep(10)
-cvx_notification_id = get_notification_id_from_nsx()
-create_deployment_map()
+if __name__ == "__main__":
+   main(sys.argv[1:])
 
 
 
 
-print("management api http-commands")
-print("no shutdown")
-print("exit")
-print("cvx")
-print("no shutdown")
-print("source-interface management 1")
-print("service pcs")
-print("no shutdown")
-print("controller "+nsx_ip)
-print("username "+nsxt_user)
-print("password "+nsxt_password)
-print("enforcement-point cvx-ep")
-print("pinned-public-key sha256//"+nsx_thumbprint)
-print("notification-id "+cvx_notification_id)
-print("end")
-print("write mem")
+
+
 
 
 
